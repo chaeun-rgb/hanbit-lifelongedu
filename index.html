@@ -384,7 +384,7 @@ button { font-family: var(--font-sans); }
 .eyebrow--cyan    { background: #ecfeff; border-color: #a2f4fd; color: #0092b8; }
 .eyebrow--lime    { background: #f7fee7; border-color: #d8f999; color: #5ea500; }
 
-.section-head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+.section-head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 36px; }
 .section-head h2 { font: var(--font-h1); letter-spacing: var(--tracking-heading); }
 .section-head p { color: var(--color-label-alternative); font-size: 16px; max-width: 640px; }
 
@@ -1063,6 +1063,15 @@ button { font-family: var(--font-sans); }
   .course-grid { grid-template-columns: 1fr; }
 }
 
+/* SVG icon base — stroke-based Feather/Lucide style */
+svg .ic, symbol .ic {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 </style>
 </head>
 <body>
@@ -1261,8 +1270,23 @@ button { font-family: var(--font-sans); }
           '<div class="voucher-amount"><div class="va-cap">연간 최대</div><div class="va-num"><b>35</b><span>만원</span></div></div>',
         '</div></div>',
       '</div></section>',
-      /* quiz section - right below hero */
-      '<section class="section section--alt section--tight" id="quiz-section"><div class="wrap">',
+      /* support */
+      '<section class="section section--alt"><div class="wrap"><div class="support support--dark reveal">',
+        '<div class="support-num"><div class="cap">평생교육이용권으로</div><div class="big">연 <span>35만원</span></div><div class="note">정부가 지원하는 교육비로 한빛+의 AI 실무 강의를 부담 없이 수강하세요.</div></div>',
+        '<div class="support-facts">' + SUPPORT_FACTS.map(function (f) {
+          return '<div class="support-fact"><div class="sf-ic" style="background:' + f.c + '26;border-color:' + f.c + '4d;color:' + f.c + '">' + icon(f.ic, 20) + '</div><h4>' + f.h + '</h4><p>' + f.p + '</p></div>';
+        }).join('') + '</div>',
+      '</div></div></section>',
+      /* steps */
+      '<section class="section" id="howto"><div class="wrap">',
+        '<div class="section-head reveal"><span class="eyebrow eyebrow--mono eyebrow--blue">How to use</span><h2>이렇게 수강해요</h2><p>대상자 확인부터 결제·수강까지, 네 단계면 충분합니다.</p></div>',
+        '<div class="steps">' + STEPS.map(function (s, i) {
+          return '<div class="step reveal d' + (i + 1) + '"><span class="s-num" style="background:' + s.t + ';border-color:' + s.c + '40;color:' + s.c + '">STEP ' + (i + 1) + '</span><div class="s-ic" style="background:' + s.t + ';border-color:' + s.c + '33;color:' + s.c + '">' + icon(s.ic, 24) + '</div><h4>' + s.h + '</h4><p>' + s.p + '</p><div class="s-arrow">' + icon('chevron-right', 24) + '</div></div>';
+        }).join('') + '</div>',
+      '</div></section>',
+      /* courses */
+      '<section class="section" id="courses"><div class="wrap">',
+        '<div class="section-head reveal"><span class="eyebrow eyebrow--mono eyebrow--emerald">Curated for AI</span><h2>지금 바로 수강할 수 있는 강의</h2><p>이용권으로 수강 가능한 AI·챗GPT·자동화 강의를 카테고리별로 모았습니다.</p></div>',
         '<div class="course-quiz reveal" id="course-quiz">',
           '<div class="quiz-inner">',
             '<div class="quiz-copy">',
@@ -1273,10 +1297,6 @@ button { font-family: var(--font-sans); }
           '</div>',
           '<div class="quiz-recs" id="quiz-recs"></div>',
         '</div>',
-      '</div></section>',
-      /* courses */
-      '<section class="section" id="courses"><div class="wrap">',
-        '<div class="section-head reveal"><span class="eyebrow eyebrow--mono eyebrow--emerald">Curated for AI</span><h2>지금 바로 수강할 수 있는 강의</h2><p>이용권으로 수강 가능한 AI·챗GPT·자동화 강의를 카테고리별로 모았습니다.</p></div>',
         '<div class="curation-bar reveal"><div class="tabs" id="tabs"></div><div style="position:relative"><button class="sortsel" id="sortBtn">' + icon('filter', 15, 'var(--color-label-alternative)') + '<span id="sortName">인기순</span>' + icon('chevron-down', 15, 'var(--color-label-alternative)') + '</button><div id="sortMenu" class="sortmenu" hidden></div></div></div>',
         '<div class="course-stage reveal"><div class="course-grid" id="course-grid"></div><div class="course-notice">평생교육이용권 강의 노출</div></div>',
         '<div class="course-pagination" id="course-pagination"></div>',
@@ -1288,20 +1308,6 @@ button { font-family: var(--font-sans); }
           return '<div class="whatis-card reveal d' + (i + 1) + '"><div class="wi-n" style="background:' + w.c + '">' + w.n + '</div><h4>' + w.h + '</h4><p>' + w.p + '</p></div>';
         }).join('') + '</div>',
         '<div class="reveal" style="display:flex;justify-content:center;margin-top:32px"><a href="https://www.lllcard.kr" target="_blank" rel="noopener" class="btn btn-onlight-outline voucher-guide-link">평생교육이용권 신청·발급 안내</a></div>',
-      '</div></section>',
-      /* support */
-      '<section class="section"><div class="wrap"><div class="support support--dark reveal">',
-        '<div class="support-num"><div class="cap">평생교육이용권으로</div><div class="big">연 <span>35만원</span></div><div class="note">정부가 지원하는 교육비로 한빛+의 AI 실무 강의를 부담 없이 수강하세요.</div></div>',
-        '<div class="support-facts">' + SUPPORT_FACTS.map(function (f) {
-          return '<div class="support-fact"><div class="sf-ic" style="background:' + f.c + '26;border-color:' + f.c + '4d;color:' + f.c + '">' + icon(f.ic, 20) + '</div><h4>' + f.h + '</h4><p>' + f.p + '</p></div>';
-        }).join('') + '</div>',
-      '</div></div></section>',
-      /* steps */
-      '<section class="section section--alt" id="howto"><div class="wrap">',
-        '<div class="section-head reveal"><span class="eyebrow eyebrow--mono eyebrow--blue">How to use</span><h2>이렇게 수강해요</h2><p>대상자 확인부터 결제·수강까지, 네 단계면 충분합니다.</p></div>',
-        '<div class="steps">' + STEPS.map(function (s, i) {
-          return '<div class="step reveal d' + (i + 1) + '"><span class="s-num" style="background:' + s.t + ';border-color:' + s.c + '40;color:' + s.c + '">STEP ' + (i + 1) + '</span><div class="s-ic" style="background:' + s.t + ';border-color:' + s.c + '33;color:' + s.c + '">' + icon(s.ic, 24) + '</div><h4>' + s.h + '</h4><p>' + s.p + '</p><div class="s-arrow">' + icon('chevron-right', 24) + '</div></div>';
-        }).join('') + '</div>',
       '</div></section>',
       /* faq */
       '<section class="section" id="faq"><div class="wrap">',
